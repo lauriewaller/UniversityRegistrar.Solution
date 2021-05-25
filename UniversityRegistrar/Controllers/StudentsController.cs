@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using UniversityRegistrar.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,9 +16,13 @@ namespace UniversityRegistrar.Controllers
     {
       _db = db;
     }
-    public ActionResult Index()
+    public ActionResult Index(string searchString)
     {
       List<Student> model = _db.Students.ToList();
+      if (!String.IsNullOrEmpty(searchString))
+    {
+      model = _db.Students.Where(s => s.Name.Contains(searchString)).ToList();
+    } 
       return View(model);
     }
 
