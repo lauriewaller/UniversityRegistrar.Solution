@@ -21,7 +21,7 @@ namespace UniversityRegistrar.Controllers
       return View(model);
     }
 
-        public ActionResult Create()
+    public ActionResult Create()
     {
       return View();
     }
@@ -34,8 +34,42 @@ namespace UniversityRegistrar.Controllers
       return RedirectToAction("Index");
     }
 
+    public ActionResult Details(int id)
+    {
+      var thisCourse = _db.Courses
+        .Include(course => course.JoinEntities)
+        .ThenInclude(join => join.Student)
+        .FirstOrDefault(course => course.CourseId == id);
+      return View(thisCourse);
+    }
 
+    public ActionResult Edit(int id)
+    {
+      var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      return View(thisCourse);
+    }
 
+    [HttpPost]
+    public ActionResult Edit(Course course)
+    {
+      _db.Entry(course).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+   public ActionResult Delete(int id)
+    {
+      var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      return View(thisCourse);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      _db.Courses.Remove(thisCourse);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
 
   }
 }
