@@ -5,10 +5,11 @@
 @model UniversityRegistrar.Models.Course;
 
 <h2>Course Details</h2>
-<hr/>
+<hr />
 <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+<h3>department name: @Model.Department.Name</h3>
 
-@if(@Model.JoinEntities.Count == 0)
+@if (@Model.JoinEntities.Count == 0)
 {
   <p>This course does not contain any students. Ponder teaching something more interesting!</p>
 }
@@ -16,10 +17,10 @@ else
 {
   <h4>Students this course contains:</h4>
   <ul>
-  @foreach(var join in Model.JoinEntities)
-  {
-    <li>@join.Student.Name</li>
-  }
+  @foreach (var join in Model.JoinEntities)
+    {
+      <li>@join.Student.Name</li>
+    }
   </ul>
 }
 

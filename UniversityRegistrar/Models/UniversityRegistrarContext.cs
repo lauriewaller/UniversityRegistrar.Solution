@@ -7,6 +7,7 @@ namespace UniversityRegistrar.Models
     public virtual DbSet<Course> Courses { get; set; } //Each DbSet we've included will become a table in our database. 
     public DbSet<Student> Students { get; set; }
     public DbSet<Enrollment> Enrollment { get; set; }
+    public virtual DbSet<Department> Departments { get; set; }
 
     public UniversityRegistrarContext(DbContextOptions options) : base(options) { }
 
