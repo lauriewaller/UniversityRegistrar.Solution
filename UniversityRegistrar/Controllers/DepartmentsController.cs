@@ -19,10 +19,6 @@ namespace UniversityRegistrar.Controllers
     public ActionResult Index()
     {
       List<Department> model = _db.Departments.ToList();
-      //   if (!String.IsNullOrEmpty(searchString))
-      // {
-      //   model = _db.Students.Where(s => s.Name.Contains(searchString)).ToList();
-      // } 
       return View(model);
     }
 
@@ -31,13 +27,18 @@ namespace UniversityRegistrar.Controllers
       return View();
     }
 
-
     [HttpPost]
     public ActionResult Create(Department department)
     {
       _db.Departments.Add(department);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    public ActionResult Details(int id)
+    {
+      Department thisDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id); //Start by looking at _db.Items (our items table). Then find any items where the ItemId of an item is equal to the id we've passed into this method.
+      return View(thisDepartment);
     }
   }
 }

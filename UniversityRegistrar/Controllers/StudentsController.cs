@@ -20,9 +20,9 @@ namespace UniversityRegistrar.Controllers
     {
       List<Student> model = _db.Students.ToList();
       if (!String.IsNullOrEmpty(searchString))
-    {
-      model = _db.Students.Where(s => s.Name.Contains(searchString)).ToList();
-    } 
+      {
+        model = _db.Students.Where(s => s.Name.Contains(searchString)).ToList();
+      }
       return View(model);
     }
 
