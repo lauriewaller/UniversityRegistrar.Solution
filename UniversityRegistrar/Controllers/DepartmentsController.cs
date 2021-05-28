@@ -16,9 +16,13 @@ namespace UniversityRegistrar.Controllers
     {
       _db = db;
     }
-    public ActionResult Index()
+    public ActionResult Index(string searchString)
     {
       List<Department> model = _db.Departments.ToList();
+      if (!String.IsNullOrEmpty(searchString))
+      {
+        model = _db.Departments.Where(s => s.Name.Contains(searchString)).ToList();
+      }
       return View(model);
     }
 
