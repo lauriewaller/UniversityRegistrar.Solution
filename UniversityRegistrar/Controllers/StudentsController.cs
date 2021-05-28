@@ -60,6 +60,7 @@ namespace UniversityRegistrar.Controllers
       ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "Name");
       return View(thisStudent);
     }
+
     [HttpPost]
     public ActionResult Edit(Student student, int CourseId)
     {
@@ -69,7 +70,7 @@ namespace UniversityRegistrar.Controllers
       }
       _db.Entry(student).State = EntityState.Modified;
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new { id = student.StudentId });
     }
 
     public ActionResult AddCourse(int id)
