@@ -44,5 +44,19 @@ namespace UniversityRegistrar.Controllers
       Department thisDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id); //Start by looking at _db.Items (our items table). Then find any items where the ItemId of an item is equal to the id we've passed into this method.
       return View(thisDepartment);
     }
+    public ActionResult Delete(int id)
+    {
+      var thisDepartment = _db.Courses.FirstOrDefault(department => department.DepartmentId == id);
+      return View(thisDepartment);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id);
+      _db.Departments.Remove(thisDepartment);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
