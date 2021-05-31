@@ -46,7 +46,7 @@ namespace UniversityRegistrar.Controllers
     }
     public ActionResult Delete(int id)
     {
-      var thisDepartment = _db.Courses.FirstOrDefault(department => department.DepartmentId == id);
+      var thisDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id);
       return View(thisDepartment);
     }
 
@@ -55,6 +55,20 @@ namespace UniversityRegistrar.Controllers
     {
       var thisDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id);
       _db.Departments.Remove(thisDepartment);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult Edit(int id)
+    {
+      var thisDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id);
+      return View(thisDepartment);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Department department)
+    {
+      _db.Entry(department).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
