@@ -87,7 +87,7 @@ namespace UniversityRegistrar.Controllers
         _db.Enrollment.Add(new Enrollment() { CourseId = CourseId, StudentId = student.StudentId });
       }
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new { id = student.StudentId });
     }
 
     [HttpPost]
