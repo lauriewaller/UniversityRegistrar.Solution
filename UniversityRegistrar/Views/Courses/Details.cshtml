@@ -7,7 +7,9 @@
 <h2>Course Details</h2>
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
-<h3>Department name: @Model.Department.Name</h3>
+
+<h3>Department Name: @Model.Department.Name</h3>
+
 
 @if (@Model.JoinEntities.Count == 0)
 {
@@ -24,7 +26,7 @@ else
   </ul>
 }
 
-<p>@Html.ActionLink("Back to courses", "Index")</p>
+<p>@Html.ActionLink("Back to Course List", "Index")</p>
 <p>@Html.ActionLink("Edit Course", "Edit", new { id = Model.CourseId })</p>
 <p>@Html.ActionLink("Delete Course", "Delete", new { id = Model.CourseId })</p>
-<p>@Html.ActionLink("Add a student", "Create", "Students")</p>
+<p>@Html.ActionLink("Add a Student to Course", "Create", "Students")</p>

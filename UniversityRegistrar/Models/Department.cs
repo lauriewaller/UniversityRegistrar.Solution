@@ -10,6 +10,8 @@ namespace UniversityRegistrar.Models
     }
     public int DepartmentId { get; set; }
     public string Name { get; set; }
+
+    //public string Date { get; set; }
     public virtual ICollection<Course> Courses { get; set; }
   }
 }

@@ -59,6 +59,8 @@ namespace UniversityRegistrar.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    //, new { id = course.CourseId }
+
     public ActionResult Delete(int id)
     {
       var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);

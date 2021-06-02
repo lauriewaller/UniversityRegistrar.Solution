@@ -37,8 +37,7 @@ namespace UniversityRegistrar
       app.UseEndpoints(routes =>
       {
         routes.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-      });
-//The template option above tells .NET how to treat routes. This configuration, known as conventional routing, matches a path like /Items/Details/6 to its specific controller action by looking for the Details action route in the Items controller. Then it binds the value of id to 6. We won't change routes in this class, but be aware that .NET routing conventions can be configured. If you're interested in learning more, check out the documentation on the subject.
+      });//The template option above tells .NET how to treat routes. This configuration, known as conventional routing, matches a path like /Items/Details/6 to its specific controller action by looking for the Details action route in the Items controller. Then it binds the value of id to 6. We won't change routes in this class, but be aware that .NET routing conventions can be configured. If you're interested in learning more, check out the documentation on the subject.
       app.UseStaticFiles();
       
       app.Run(async (context) =>
