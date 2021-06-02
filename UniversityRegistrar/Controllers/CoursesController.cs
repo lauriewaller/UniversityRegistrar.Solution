@@ -4,6 +4,7 @@ using UniversityRegistrar.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace UniversityRegistrar.Controllers
 {
@@ -60,6 +61,35 @@ namespace UniversityRegistrar.Controllers
       return RedirectToAction("Index");
     }
     //, new { id = course.CourseId }
+
+
+    public ActionResult AddStudent(int id)
+    {
+      var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      ViewBag.StudentId = new SelectList(_db.Students, "StudentId", "Name");
+      return View(thisCourse);
+    }
+
+    [HttpPost]
+    public ActionResult AddStudent(Course course, int StudentId)
+    {
+      if (StudentId != 0)
+      {
+        List<Enrollment> model = _db.Enrollment.ToList();
+
+        for (int i = 0; i < model.Count; i++)
+        {
+          if (model[i].CourseId == course.CourseId && model[i].StudentId == StudentId)
+          {
+            return RedirectToAction("ErrorPage", "Students");
+          }
+        }
+        _db.Enrollment.Add(new Enrollment() { CourseId = course.CourseId, StudentId = StudentId });
+        _db.SaveChanges();
+      }
+
+      return RedirectToAction("Details", new { id = course.CourseId });
+    }
 
     public ActionResult Delete(int id)
     {

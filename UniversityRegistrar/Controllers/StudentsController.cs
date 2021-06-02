@@ -84,6 +84,15 @@ namespace UniversityRegistrar.Controllers
     {
       if (CourseId != 0)
       {
+        List<Enrollment> model = _db.Enrollment.ToList();
+
+        for (int i = 0; i < model.Count; i++)
+        {
+          if (model[i].StudentId == student.StudentId && model[i].CourseId == CourseId)
+          {
+            return RedirectToAction("ErrorPage");
+          }
+        }
         _db.Enrollment.Add(new Enrollment() { CourseId = CourseId, StudentId = student.StudentId });
       }
       _db.SaveChanges();
@@ -111,6 +120,11 @@ namespace UniversityRegistrar.Controllers
       _db.Students.Remove(thisStudent);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    public ActionResult ErrorPage()
+    {
+      return View();
     }
 
   }
