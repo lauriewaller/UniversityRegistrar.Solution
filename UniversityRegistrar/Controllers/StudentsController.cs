@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using UniversityRegistrar.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,9 +16,13 @@ namespace UniversityRegistrar.Controllers
     {
       _db = db;
     }
-    public ActionResult Index()
+    public ActionResult Index(string searchString)
     {
       List<Student> model = _db.Students.ToList();
+      if (!String.IsNullOrEmpty(searchString))
+      {
+        model = _db.Students.Where(s => s.Name.Contains(searchString)).ToList();
+      }
       return View(model);
     }
 
@@ -55,6 +60,7 @@ namespace UniversityRegistrar.Controllers
       ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "Name");
       return View(thisStudent);
     }
+
     [HttpPost]
     public ActionResult Edit(Student student, int CourseId)
     {
@@ -64,7 +70,7 @@ namespace UniversityRegistrar.Controllers
       }
       _db.Entry(student).State = EntityState.Modified;
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new { id = student.StudentId });
     }
 
     public ActionResult AddCourse(int id)
@@ -81,7 +87,7 @@ namespace UniversityRegistrar.Controllers
         _db.Enrollment.Add(new Enrollment() { CourseId = CourseId, StudentId = student.StudentId });
       }
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new { id = student.StudentId });
     }
 
     [HttpPost]
