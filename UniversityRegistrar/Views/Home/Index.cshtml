@@ -2,7 +2,22 @@
   Layout = "_Layout";
 }
 
+@using UniversityRegistrar.Models;
+
 <h1>Welcome to the University Registrar!</h1>
+
+<h3>Students</h3>
+@foreach (Student student in Model)
+{
+  <li>@student.Name</li>
+}
+
+<h3>Courses</h3>
+@foreach (Course course in ViewBag.courseModel)
+{
+  <li>@course.Name</li>
+}
+
 <p>@Html.ActionLink("See all students", "Index", "Students")</p>
 <p>@Html.ActionLink("See all courses", "Index", "Courses")</p>
 <p>@Html.ActionLink("See all departments", "Index", "Departments")</p>
