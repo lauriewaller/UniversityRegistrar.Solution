@@ -14,7 +14,14 @@
 * HTML5
 
 ## Description
-This application provides full CRUD functionality for users to track student, courses, and departments at a university. It also provides search functionality.
+This application provides full CRUD functionality for users to track student, courses, and departments at a university. It also provides search functionality. Users can:
+* Add new student, course, and department profiles
+* View details for each student, course, or department
+* View a list of all students, courses, and departments
+* Search for students, courses, and departments
+* Delete or update each student, course, or department
+* Add, view, and delete students connected with each course
+* Add, view, and delete courses connected with each department
 
 ## Setup/Installation Requirements
 
